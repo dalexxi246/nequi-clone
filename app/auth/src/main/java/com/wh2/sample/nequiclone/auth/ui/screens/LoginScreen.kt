@@ -14,10 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -27,16 +24,22 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.wh2.sample.nequiclone.auth.R
+import com.wh2.sample.nequiclone.auth.ui.viewmodel.AuthViewModel
 import com.wh2.sample.nequiclone.base.ui.composables.CustomTextField
 import com.wh2.sample.nequiclone.base.ui.composables.PrimaryButton
 import com.wh2.sample.nequiclone.base.ui.theme.LocalDimensions
 import com.wh2.sample.nequiclone.base.ui.theme.NequiCloneTheme
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    onNextStepButtonClicked: () -> Unit,
+    modifier: Modifier = Modifier,
+    authViewModel: AuthViewModel = viewModel()
+) {
 
-    var userName by remember { mutableStateOf(String()) }
+    val uiState = authViewModel.uiState.collectAsState()
 
     ConstraintLayout(
         modifier = modifier
@@ -62,12 +65,10 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                 }
         ) {
             LoginScreenForm(
-                userName = userName,
+                userName = uiState.value.userPhone,
                 modifier = Modifier.padding(LocalDimensions.current.formFieldsVerticalPadding),
-                onUserNameUpdated = { userName = it },
-                onNextStepButtonClicked = {
-                    /* TODO Implement click to navigate next screen */
-                }
+                onUserNameUpdated = authViewModel::updateUserPhone,
+                onNextStepButtonClicked = onNextStepButtonClicked
             )
             LoginScreenFooter()
         }
@@ -115,10 +116,10 @@ private fun LoginScreenForm(
         Spacer(modifier = Modifier.size(LocalDimensions.current.formSpacerSize))
         PrimaryButton(
             onClick = onNextStepButtonClicked,
+            enabled = userName.isNotEmpty(),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(IntrinsicSize.Max),
-            true
+                .height(IntrinsicSize.Max)
         ) {
             Text(text = "Entra")
         }
@@ -144,7 +145,7 @@ private fun LoginScreenFooter(modifier: Modifier = Modifier) {
 @Composable
 private fun LoginScreenPreviewDefault() {
     NequiCloneTheme {
-        LoginScreen()
+        LoginScreen({})
     }
 }
 
@@ -156,7 +157,7 @@ private fun LoginScreenPreviewDefault() {
 @Composable
 private fun LoginScreenPreviewNexus7() {
     NequiCloneTheme {
-        LoginScreen()
+        LoginScreen({})
     }
 }
 

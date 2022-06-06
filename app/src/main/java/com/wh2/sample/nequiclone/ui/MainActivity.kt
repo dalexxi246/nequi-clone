@@ -1,4 +1,4 @@
-package com.wh2.sample.nequiclone
+package com.wh2.sample.nequiclone.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.wh2.sample.nequiclone.auth.ui.screens.LoginScreen
+import com.wh2.sample.nequiclone.auth.ui.navigation.AuthNavigation
 import com.wh2.sample.nequiclone.base.ui.theme.NequiCloneTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    LoginScreen()
+                    AuthNavigation()
                 }
             }
         }
