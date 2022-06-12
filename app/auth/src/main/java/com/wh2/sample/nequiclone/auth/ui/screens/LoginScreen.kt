@@ -85,7 +85,7 @@ private fun Logo(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = R.drawable.ic_logo_login),
             modifier = Modifier.size(sizeLogoImage),
-            contentDescription = stringResource(R.string.content_login_logo)
+            contentDescription = stringResource(R.string.login_logo_content_description)
         )
         Text(
             text = stringResource(id = R.string.app_name).uppercase(),

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="content_login_logo">description of the image</string>
     <string name="app_name">Nequi</string>
+
+    <!-- Password screen -->
+    <string name="password_write_label">Escribe tu clave</string>
+    <string name="password.forgot_password.label">Se te olvidó?</string>
+
+    <!-- Content descriptions -->
+    <string name="login.logo.content_description">description of the image</string>
+    <string name="password_explanation_label">No dudamos que seas tú…\nPero es mejor confirmar ;)</string>
+    <string name="content_description_navigation_back">Arrow Back</string>
 </resources>
