@@ -3,6 +3,10 @@ package com.wh2.sample.nequiclone.auth.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wh2.sample.nequiclone.auth.ui.state.LoginUiState
+import com.wh2.sample.nequiclone.auth.ui.state.LoginUiState.Companion.errorOnLogin
+import com.wh2.sample.nequiclone.auth.ui.state.LoginUiState.Companion.loadingOff
+import com.wh2.sample.nequiclone.auth.ui.state.LoginUiState.Companion.loadingOn
+import com.wh2.sample.nequiclone.auth.ui.state.LoginUiState.Companion.userSignedUp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,15 +29,16 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     }
 
     fun login() {
-        _uiState.update { it.copy(isLoading = true) }
+        _uiState.update { it.loadingOn() }
         viewModelScope.launch {
             delay(3000)
+            _uiState.update { it.loadingOff() }
             if (uiState.value.userPhone != "12345") {
-                _uiState.update { it.copy(errorOnLoginFailed = "Usuario no registrado") }
+                _uiState.update { it.errorOnLogin() }
             } else if (uiState.value.userPassword != "1234") {
-                _uiState.update { it.copy(errorOnLoginFailed = "Contraseña incorrecta") }
+                _uiState.update { it.errorOnLogin() }
             } else {
-                _uiState.update { it.copy(isUserSignedUp = true) }
+                _uiState.update { it.userSignedUp() }
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.wh2.sample.nequiclone.auth.ui.screens
+package com.wh2.sample.nequiclone.auth.ui.screens.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

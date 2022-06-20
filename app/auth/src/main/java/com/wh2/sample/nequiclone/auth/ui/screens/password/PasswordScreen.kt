@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalFoundationApi::class, ExperimentalUnitApi::class)
 
-package com.wh2.sample.nequiclone.auth.ui.screens
+package com.wh2.sample.nequiclone.auth.ui.screens.password
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -43,19 +43,11 @@ import com.wh2.sample.nequiclone.base.ui.theme.NequiCloneTheme
 @Composable
 fun PasswordScreen(
     password: String,
-    isLoading: Boolean,
-    isUserSignedUp: Boolean,
     updatePassword: (String) -> Unit,
     authenticate: () -> Unit,
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    LaunchedEffect(password) {
-        if (password.length == 4) {
-            authenticate()
-        }
-    }
 
     val addPasswordChar = { char: String ->
         updatePassword(password.plus(char))
@@ -67,12 +59,18 @@ fun PasswordScreen(
         }
     }
 
+    LaunchedEffect(password) {
+        if (password.length == 4) {
+            authenticate()
+        }
+    }
+
     ConstraintLayout(
         modifier = modifier
             .fillMaxSize()
             .padding(LocalDimensions.current.screenEdgesPadding)
     ) {
-        val (upperComponentsRef, lowerComponentsRef, userSignedUpRef, LoadingRef) = createRefs()
+        val (upperComponentsRef, lowerComponentsRef) = createRefs()
         UpperComponents(
             password = password,
             onBackPressed = onBackPressed,
@@ -84,17 +82,6 @@ fun PasswordScreen(
                     end.linkTo(parent.end)
                 }
         )
-        if (isUserSignedUp) {
-            Text(
-                text = "Usuario conectado",
-                modifier = Modifier.constrainAs(userSignedUpRef) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-            )
-        }
         LowerComponents(
             onDigitKeyPressed = addPasswordChar,
             onDeleteKeyPressed = deletePasswordChar,
@@ -285,12 +272,10 @@ private fun IconKey(
 private fun Preview() {
     NequiCloneTheme {
         PasswordScreen(
-            password = "1234",
-            isLoading = false,
-            isUserSignedUp = true,
-            updatePassword = {},
+            password = "123",
             authenticate = {},
-            onBackPressed = {}
+            onBackPressed = {},
+            updatePassword = {}
         )
     }
 }
