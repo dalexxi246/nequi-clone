@@ -34,7 +34,10 @@ fun NavGraphBuilder.authNavigation(navController: NavController) {
                     .fillMaxSize()
                     .background(Color.Cyan)
             ) {
-                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
                     Text(text = "XYZ")
                 }
             }

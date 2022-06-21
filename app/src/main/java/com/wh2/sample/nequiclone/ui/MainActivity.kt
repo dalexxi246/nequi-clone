@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.wh2.sample.nequiclone.auth.ui.navigation.ROUTE_AUTH
 import com.wh2.sample.nequiclone.auth.ui.navigation.authNavigation
 import com.wh2.sample.nequiclone.base.ui.theme.NequiCloneTheme
+import com.wh2.sample.nequiclone.dashboard.ui.navigation.dashboardNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(navController, ROUTE_AUTH) {
                         authNavigation(navController)
+                        dashboardNavigation(navController)
                     }
                 }
             }

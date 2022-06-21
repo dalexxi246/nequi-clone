@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "Nequi Clone"
 include ':app'
 include ':app:auth'
+include ':app:dashboard'
 include ':base'
